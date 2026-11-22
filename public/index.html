@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Discord Webtool</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">Discord Webtool<span class="ver">v2</span></div>
+  <div class="dev">
+    <label for="device">端末</label>
+    <select id="device"></select>
+    <button id="devNew" title="この端末用の新しいプロファイル">＋</button>
+    <button id="devRename" title="名前変更">✎</button>
+    <button id="devDel" class="danger" title="この端末のデータを削除">✕</button>
+  </div>
+  <div class="spacer"></div>
+  <span class="badge" id="hState">停止中</span>
+  <span class="badge" id="hRate">0.0 msg/s</span>
+</header>
+
+<div class="notice">
+  トークン・変数・ログはすべてこのブラウザの localStorage（端末プロファイル別）にのみ保存されます。サーバー側は無状態のプロキシで、トークンを保存しません。
+</div>
+
+<main>
+  <section class="panel">
+    <h2>トークン</h2>
+    <div class="row">
+      <button id="tokAdd">貼り付け追加</button>
+      <button id="tokCheck">全トークン検証</button>
+      <button id="tokReveal">表示切替</button>
+      <button id="tokClear" class="danger">全削除</button>
+    </div>
+    <textarea id="tokInput" placeholder="ここに1行1トークンを貼り付けて「貼り付け追加」&#10;MTIzNDU2Nzg5.GaBcDe.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></textarea>
+    <div id="tokList" class="toklist"></div>
+    <div class="hint">検証は /users/@me を1件ずつ叩きます（連打しない）。</div>
+  </section>
+
+  <section class="panel">
+    <h2>送信設定</h2>
+    <label>チャンネルID</label>
+    <input id="channel" placeholder="123456789012345678" inputmode="numeric">
+    <label>本文テンプレ（1行1パターン・ランダム抽選）</label>
+    <textarea id="template" placeholder="{rand:6} です&#10;連射 {n} / {time}"></textarea>
+    <div class="hint">{n}=連番 / {rand}=英数 / {rand:N}=N桁 / {time} / {date} / {i}=トークン番号 / {name}=ラベル</div>
+    <div class="grid3">
+      <div><label>バースト</label><input id="burst" type="number" min="1" max="10" value="5"></div>
+      <div><label>クールダウン ms</label><input id="cooldown" type="number" min="200" value="5200"></div>
+      <div><label>ジッタ %</label><input id="jitter" type="number" min="0" max="100" value="12"></div>
+      <div><label>同時実行数</label><input id="concurrency" type="number" min="0" value="0"></div>
+      <div><label>1トークン上限</label><input id="limit" type="number" min="0" value="0"></div>
+      <div><label>429再試行</label><input id="retry" type="number" min="0" max="10" value="5"></div>
+      <div><label>TTS</label><select id="tts"><option value="0">off</option><option value="1">on</option></select></div>
+      <div><label>不可視サフィックス</label><select id="zw"><option value="1">付与</option><option value="0">なし</option></select></div>
+      <div><label>APIベース</label><input id="base" value="/api"></div>
+    </div>
+    <div class="row">
+      <button id="start" class="primary">開始</button>
+      <button id="pause">一時停止</button>
+      <button id="stop" class="danger">停止</button>
+      <button id="cfgSave">設定保存</button>
+    </div>
+  </section>
+
+  <section class="panel wide">
+    <h2>統計</h2>
+    <div class="stats">
+      <div class="stat"><b id="sSent">0</b><span>成功</span></div>
+      <div class="stat"><b id="sFail">0</b><span>失敗</span></div>
+      <div class="stat"><b id="sRate">0.0</b><span>msg/s</span></div>
+      <div class="stat"><b id="sTime">0s</b><span>経過</span></div>
+      <div class="stat"><b id="sTok">0</b><span>生存トークン</span></div>
+    </div>
+  </section>
+
+  <section class="panel wide">
+    <h2>ログ</h2>
+    <div class="row">
+      <select id="logLevel">
+        <option value="debug">すべて</option>
+        <option value="info" selected>info以上</option>
+        <option value="success">success以上</option>
+        <option value="warn">warn以上</option>
+        <option value="error">errorのみ</option>
+      </select>
+      <input id="logSearch" placeholder="絞り込み">
+      <label class="inline"><input type="checkbox" id="logAuto" checked> 自動スクロール</label>
+      <button id="logCopy">コピー</button>
+      <button id="logDl">DL</button>
+      <button id="logClear" class="danger">消去</button>
+    </div>
+    <div id="log"></div>
+    <div class="hint" id="logCount">0 件</div>
+  </section>
+
+  <section class="panel wide">
+    <h2>バックアップ</h2>
+    <div class="row">
+      <button id="expPlain">JSON書き出し</button>
+      <button id="expEnc">パスフレーズで暗号化書き出し</button>
+      <button id="impBtn">読み込み</button>
+      <input id="impFile" type="file" accept=".json,application/json" hidden>
+    </div>
+    <div class="hint">暗号化書き出しは AES-256-GCM / PBKDF2 210k。トークンを含むので配布時はこちら推奨。</div>
+  </section>
+</main>
+
+<script src="/app.js" type="module"></script>
+</body>
+</html>
