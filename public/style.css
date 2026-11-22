@@ -1,0 +1,53 @@
+:root{--bg:#0d0f13;--pnl:#161a21;--line:#262b36;--txt:#e2e6ee;--dim:#8b93a3;--acc:#5865f2;--ok:#3ba55d;--warn:#e6a23c;--err:#ed4245;--dbg:#6b7280}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:13px/1.55 -apple-system,"Segoe UI",system-ui,"Hiragino Sans",Meiryo,sans-serif}
+header{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:9;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.02em}
+.ver{font-size:10px;color:var(--dim);margin-left:5px;border:1px solid var(--line);border-radius:99px;padding:0 6px}
+.dev{display:flex;align-items:center;gap:5px}
+.dev label{font-size:11px;color:var(--dim)}
+.spacer{flex:1}
+.badge{font-size:11px;color:var(--dim);border:1px solid var(--line);border-radius:99px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.notice{margin:10px 14px 0;padding:8px 11px;border:1px solid #2d3648;background:#141b26;border-radius:8px;font-size:11.5px;color:#a8b3c6;line-height:1.6}
+main{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:1240px;margin:0 auto}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.panel{background:var(--pnl);border:1px solid var(--line);border-radius:10px;padding:12px}
+.panel.wide{grid-column:1/-1}
+.panel h2{font-size:11px;margin:0 0 9px;color:var(--dim);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+textarea,input,select{width:100%;background:#0a0c10;color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font:inherit;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+textarea{resize:vertical;min-height:86px}
+#template{min-height:96px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
+label{font-size:11px;color:var(--dim);display:block;margin:9px 0 3px}
+label.inline{display:flex;align-items:center;gap:5px;margin:0;white-space:nowrap}
+label.inline input{width:auto}
+.row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:9px}
+.row>input,.row>select{flex:1;min-width:110px}
+button{background:#212632;color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 11px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+button:hover{border-color:#3b4356}
+button.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+button.danger{background:#3a1f22;border-color:#5c2b30;color:#ff9ba0}
+button:disabled{opacity:.45;cursor:not-allowed}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:600px){.grid3{grid-template-columns:1fr 1fr}}
+.grid3 label{margin-top:0}
+.hint{font-size:11px;color:var(--dim);margin-top:7px;line-height:1.6}
+.toklist{margin-top:10px;max-height:230px;overflow:auto;border-top:1px solid #1c2028}
+.tok{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid #1c2028;font-size:11px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.dot{width:7px;height:7px;border-radius:99px;background:var(--dim);flex:0 0 auto}
+.dot.ok{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.dot.bad{background:var(--err)}
+.dot.busy{background:var(--warn)}
+.tok .lbl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tok .num{color:var(--dim);font-variant-numeric:tabular-nums}
+.tok button{padding:2px 6px;font-size:10px;font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:#0a0c10;border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+.stat b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.stat span{font-size:10px;color:var(--dim);letter-spacing:.05em}
+#log{height:320px;overflow:auto;background:#080a0d;border:1px solid var(--line);border-radius:7px;padding:8px;font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;margin-top:8px}
+#log div{white-space:pre-wrap;word-break:break-all;border-bottom:1px solid #10141a;padding:1px 0}
+.lv-debug{color:var(--dbg)}.lv-info{color:#9fb0c9}.lv-success{color:var(--ok)}
+.lv-warn{color:var(--warn)}.lv-error{color:var(--err)}
+#logSearch{flex:1;min-width:120px}
